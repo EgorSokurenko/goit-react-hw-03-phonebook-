@@ -1,36 +1,35 @@
-import { Component } from "react";
-import propTypes, { number } from "prop-types";
+import {useState} from "react";
+import propTypes from "prop-types";
 import "./ContactForm.css";
-export default class ContactForm extends Component {
-  state = {
-    name: "",
-    number: "",
-  };
-  handleChange = (e) => {
+export default function ContactForm ({addContact}){
+  const [name, setName] = useState('')
+  const [number, setNumber] = useState('')
+  const handleChange = (e) => {
     const { name, value } = e.currentTarget;
-    this.setState({
-      [name]: value,
-    });
+    switch (name){
+      case 'name':
+        setName(value)
+        break;
+      case 'number':
+        setNumber(value)
+        break;
+        default:break;
+    }
   };
-  handleSubmit = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    const { name, number } = this.state;
-    this.props.addContact(name, number);
-    this.setState({
-      name: "",
-      number: "",
-    });
+    addContact(name, number);
+    setNumber('')
+    setName('')
   };
-  render() {
-    const { name, number } = this.state;
     return (
-      <form className="contactForm" onSubmit={this.handleSubmit}>
+      <form className="contactForm" onSubmit={handleSubmit}>
         <label className="form__label">
           Name
           <input
             placeholder="Введите имя"
             className="form__input"
-            onChange={this.handleChange}
+            onChange={handleChange}
             value={name}
             type="text"
             name="name"
@@ -45,7 +44,7 @@ export default class ContactForm extends Component {
           <input
             placeholder="Введите номер"
             className="form__input"
-            onChange={this.handleChange}
+            onChange={handleChange}
             value={number}
             type="tel"
             name="number"
@@ -60,7 +59,6 @@ export default class ContactForm extends Component {
         </button>
       </form>
     );
-  }
 }
 ContactForm.propTypes = {
   addContact: propTypes.func,
