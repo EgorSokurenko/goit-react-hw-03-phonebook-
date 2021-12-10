@@ -1,10 +1,17 @@
 import propTypes from "prop-types";
-export default function Filter({ value, onChange }) {
+import { useSelector, useDispatch } from "react-redux";
+import * as actions from "../../redux/Filter/filter-action";
+export default function Filter() {
+  const value = useSelector((state) => state.filter);
+  const dispatch = useDispatch();
+  const handleFilter = (e) => {
+    dispatch(actions.onFilter(e.target.value));
+  };
   return (
     <label>
       Find contacts by name
       <input
-        onChange={onChange}
+        onChange={handleFilter}
         value={value}
         type="text"
         name="filter"
