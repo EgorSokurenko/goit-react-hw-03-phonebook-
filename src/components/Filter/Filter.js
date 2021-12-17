@@ -22,7 +22,3 @@ export default function Filter() {
     </label>
   );
 }
-Filter.propTypes = {
-  value: propTypes.string,
-  onChange: propTypes.func,
-};

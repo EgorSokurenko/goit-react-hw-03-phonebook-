@@ -37,7 +37,3 @@ export default function ContactList() {
     </ul>
   );
 }
-ContactList.propTypes = {
-  contacts: propTypes.array,
-  onDeliteContact: propTypes.func,
-};

@@ -64,6 +64,3 @@ export default function ContactForm() {
     </form>
   );
 }
-ContactForm.propTypes = {
-  addContact: propTypes.func,
-};
