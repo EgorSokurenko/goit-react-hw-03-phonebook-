@@ -4,13 +4,15 @@ import { useSelector, useDispatch } from "react-redux";
 import * as actions from "../../redux/Contact/contact-action";
 
 export default function ContactList() {
-  const contacts = useSelector((state) => state.items);
+  const contacts = useSelector((state) => state.persistedReducer.items);
   const filter = useSelector((state) => state.filter);
   const dispatch = useDispatch();
-
-  const visibleContacts = contacts.filter((contact) =>
-    contact.name.toLowerCase().includes(filter.toLowerCase())
-  );
+  let visibleContacts = [];
+  if (contacts) {
+    visibleContacts = contacts.filter((contact) =>
+      contact.name.toLowerCase().includes(filter.toLowerCase())
+    );
+  }
   return (
     <ul className="contactList">
       {visibleContacts &&
@@ -18,8 +20,8 @@ export default function ContactList() {
           return (
             <li className="contactItem" key={contact.id}>
               <div className="contactBlock">
-                <sapn>{contact.name}</sapn>
-                <sapn className="nubmer">{contact.number}</sapn>
+                <span>{contact.name}</span>
+                <span className="nubmer">{contact.number}</span>
               </div>
 
               <button
